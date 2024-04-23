@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 public class Practica5 extends JFrame {
 
@@ -33,7 +35,7 @@ public class Practica5 extends JFrame {
         initComponents();
     }
 
-        private JRadioButton RadiobuBachillerato;
+    private JRadioButton RadiobuBachillerato;
     private JRadioButton RdBtPostgrado;
     private JRadioButton RdboLicenciatura;
     private JRadioButton RdbtMaestria;
@@ -64,7 +66,27 @@ public class Practica5 extends JFrame {
     private JTextField txtApellidos;
     private JTextField txtNombre;
      static private int numeroEncuesta;
-    
+
+
+
+
+
+
+    private javax.swing.ButtonGroup buttonGrupo;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu btnArchivo;
+    private javax.swing.JMenuItem btnNueva;
+    private javax.swing.JMenuItem btnGuardar;
+    private javax.swing.JMenuItem btnSalir;
+    private javax.swing.JMenu btnEdicion;
+    private javax.swing.JMenuItem btnLimpiar;
+    private javax.swing.JMenuItem btnCopiar;
+    private javax.swing.JMenuItem btnCortar;
+    private javax.swing.JMenuItem btnPegar;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+
         private JSeparator jSeparator4;
 
     /**
@@ -129,6 +151,13 @@ public class Practica5 extends JFrame {
 
         btnLimpiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnLimpiar.setText("Limpiar");
+
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         btnEdicion.add(btnLimpiar);
 
         btnCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -153,7 +182,7 @@ public class Practica5 extends JFrame {
 
     private void btnNuevaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         // TODO add your handling code here:
-                buttonGrupo = new ButtonGroup();
+        buttonGrupo = new ButtonGroup();
         jLabel1 = new JLabel();
         lblNumerodeEncuesta = new JLabel();
         lblNombre = new JLabel();
@@ -190,15 +219,17 @@ public class Practica5 extends JFrame {
         lblIngresos = new JLabel();
 
 
-        
+
          jLabel1.setText("N de encuensta");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 20, 140, 19);
 
         //se inicializa el numero de encuesta, leyendo el archivo Encuestas.txt y se suma 1
         try {
-            FileReader archivo = new FileReader("/home/isaac/Universidad/Estroctura de archivos/Estructura_Archivos_2024A/src/practica_5/Encuestas.txt");
-            BufferedReader lector = new BufferedReader(archivo);
+            //se lee el archivo Encuestas.txt
+            FileInputStream archivoStream = new FileInputStream("./Encuestas.txt");
+            InputStreamReader lectorStream = new InputStreamReader(archivoStream);
+            BufferedReader lector = new BufferedReader(lectorStream);
             String linea;
             while ((linea = lector.readLine()) != null) {
                 if (linea.startsWith("Encuesta #")) {
@@ -206,9 +237,11 @@ public class Practica5 extends JFrame {
                 }
             }
             lector.close();
-            archivo.close();
+
         } catch (IOException e) {
+
             System.out.println("Error al leer el archivo");
+            return;
         }
         numeroEncuesta++;
 
@@ -399,16 +432,17 @@ public class Practica5 extends JFrame {
         //se valida que ningun campo este vacio para poder guardar la encuesta
         btnGuardo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                }
+                btnGuardoActionPerformed(evt);
+            }
         });
 
 
 
 
 
-        
-        
-        
+
+
+
     }//GEN-LAST:event_btnNuevaActionPerformed
 
     //evento del btn guardar
@@ -547,7 +581,7 @@ public class Practica5 extends JFrame {
 
 
         try {
-            FileWriter archivo = new FileWriter("/home/isaac/Universidad/Estroctura de archivos/Estructura_Archivos_2024A/src/practica_5/Encuestas.txt", true);
+            FileWriter archivo = new FileWriter("./Encuestas.txt", true);
             PrintWriter escritor = new PrintWriter(archivo);
             escritor.println("Encuesta #" + numeroEncuesta);
             escritor.println("Fecha y hora: " + fechaHora);
@@ -577,6 +611,67 @@ public class Practica5 extends JFrame {
     }//GEN-LAST:event_SliderIngresosStateChanged
 
 
+    //action performed del btn salir
+    private void btnSalirActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        //se confirma que el usario quiere salir
+        int salir = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de que desea salir", "Ventana de salida", JOptionPane.YES_NO_CANCEL_OPTION);
+        //el usuario respondio que si y entonces se cierra el programa
+        if (salir == JOptionPane.YES_OPTION) JOptionPane.showMessageDialog(rootPane, "Hasta luego :c");
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    //action performed del btnLimpiar
+
+    private void btnLimpiarActionPerformed(ActionEvent evt) {
+        // Limpiar los campos de texto
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        jTextField1.setText("");
+
+        // Resetear el spinner de la edad
+        SpEdad.setValue(0);
+
+        // Resetear el combo box del género
+        comboGenero.setSelectedIndex(0);
+
+        // Desmarcar todos los radio buttons del último grado
+        buttonGrupo.clearSelection();
+
+        // Desmarcar todas las casillas de verificación de los gustos
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+        jCheckBox9.setSelected(false);
+
+        // Resetear el slider de los ingresos
+        SliderIngresos.setValue(5000);
+    }
+
+    //actionPefromed del btnCopiar
+    private void btnCopiarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCopiarActionPerformed
+        // TODO add your handling code here:
+
+        //se le pide el usuario que ingrese un numero de encuesta para copiarla
+        String numeroEncuesta = JOptionPane.showInputDialog(rootPane, "Ingrese el número de encuesta que desea copiar");
+        //se valida que el usuario haya ingresado un numero
+        if (numeroEncuesta == null || numeroEncuesta.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor, ingrese un número de encuesta", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //se lee el archivo Encuestas.txt y se busca la encuesta con el numero ingresado
+
+
+
+    }//GEN-LAST:event_btnCopiarActionPerformed
+
+
     /**
      * @param args the command line arguments
      */
@@ -584,7 +679,7 @@ public class Practica5 extends JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -613,19 +708,6 @@ public class Practica5 extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu btnArchivo;
-    private javax.swing.JMenuItem btnCopiar;
-    private javax.swing.JMenuItem btnCortar;
-    private javax.swing.JMenu btnEdicion;
-    private javax.swing.JMenuItem btnGuardar;
-    private javax.swing.JMenuItem btnLimpiar;
-    private javax.swing.JMenuItem btnNueva;
-    private javax.swing.JMenuItem btnPegar;
-    private javax.swing.JMenuItem btnSalir;
-    private javax.swing.ButtonGroup buttonGrupo;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
+
     // End of variables declaration//GEN-END:variables
 }

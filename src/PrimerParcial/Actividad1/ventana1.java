@@ -7,7 +7,6 @@ package PrimerParcial.Actividad1;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author isaac
  */
 public class ventana1 extends javax.swing.JFrame {
@@ -91,28 +90,28 @@ public class ventana1 extends javax.swing.JFrame {
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Programa terminado","Cierre de laventa",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(rootPane, "Programa terminado", "Cierre de laventa", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnVersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionActionPerformed
         // TODO add your handling code here:
-    JOptionPane.showMessageDialog(rootPane, "Practica 1", "Aplicaciones UNEDL", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(rootPane, "Practica 1", "Aplicaciones UNEDL", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_btnVersionActionPerformed
 
     private void btnAcerdaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcerdaDeActionPerformed
         // TODO add your handling code here:
-        
-        
+
+
     }//GEN-LAST:event_btnAcerdaDeActionPerformed
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
         // TODO add your handling code here:
-        
-        JOptionPane.showMessageDialog(rootPane, "Isaac Diaz Rodriguez, universidad ENrique Diaz De leon, Ingeneria en software","Informacion",JOptionPane.INFORMATION_MESSAGE);
-        
-        
+
+        JOptionPane.showMessageDialog(rootPane, "Isaac Diaz Rodriguez, universidad ENrique Diaz De leon, Ingeneria en software", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+
     }//GEN-LAST:event_btnInformacionActionPerformed
 
     /**
@@ -122,7 +121,7 @@ public class ventana1 extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

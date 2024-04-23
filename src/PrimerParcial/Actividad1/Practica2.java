@@ -7,7 +7,6 @@ package PrimerParcial.Actividad1;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author isaac
  */
 public class Practica2 extends javax.swing.JFrame {
@@ -78,9 +77,10 @@ public class Practica2 extends javax.swing.JFrame {
         //se confirma que el usario quiere sali
         int salir = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de que desea salir", "Ventana de salida", JOptionPane.YES_NO_CANCEL_OPTION);
         //el usuario respondio que si y entonces se cierra el programa
-        if (salir == JOptionPane.YES_OPTION) JOptionPane.showMessageDialog(rootPane, "Hasta luego :c"); System.exit(0);
-        
-        
+        if (salir == JOptionPane.YES_OPTION) JOptionPane.showMessageDialog(rootPane, "Hasta luego :c");
+        System.exit(0);
+
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
@@ -90,7 +90,7 @@ public class Practica2 extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

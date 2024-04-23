@@ -7,7 +7,6 @@ package PrimerParcial.Actividad1.SegundaAtividad;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author isaac
  */
 public class Actividad2 extends javax.swing.JFrame {
@@ -95,12 +94,12 @@ public class Actividad2 extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 374, Short.MAX_VALUE)
         );
 
         pack();
@@ -114,13 +113,13 @@ public class Actividad2 extends javax.swing.JFrame {
 
     private void btnMuestraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuestraActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Este mensaje de prueba solo se le muestra al usuario","Hola",JOptionPane.INFORMATION_MESSAGE);
-        
+        JOptionPane.showMessageDialog(rootPane, "Este mensaje de prueba solo se le muestra al usuario", "Hola", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_btnMuestraActionPerformed
 
     private void btnPreguntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreguntarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showConfirmDialog(rootPane, "Este mensaje solo es para mostrarte si te queda claro esto","Pregunta",
+        JOptionPane.showConfirmDialog(rootPane, "Este mensaje solo es para mostrarte si te queda claro esto", "Pregunta",
                 JOptionPane.YES_NO_CANCEL_OPTION);
     }//GEN-LAST:event_btnPreguntarActionPerformed
 
@@ -136,10 +135,8 @@ public class Actividad2 extends javax.swing.JFrame {
                 null,
                 options,
                 options[2]);
-        
-        
 
-        
+
     }//GEN-LAST:event_btnPersonalizaActionPerformed
 
     /**
@@ -149,7 +146,7 @@ public class Actividad2 extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

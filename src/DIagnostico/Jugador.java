@@ -9,6 +9,7 @@ public class Jugador {
         this.dorsal = dorsal;
         this.persona = persona;
     }
+
     //getters and setters
     public String getDorsal() {
         return dorsal;

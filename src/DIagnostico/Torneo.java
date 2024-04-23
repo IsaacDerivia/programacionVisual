@@ -9,20 +9,18 @@ import java.util.Scanner;
 public class Torneo implements Partidos {
 
     //metodo para recibir datos
-   static Scanner sc = new Scanner(System.in);
-
-
+    static Scanner sc = new Scanner(System.in);
 
 
     @Override
-    public void juegarPartidos (LinkedList<Equipos> equipos) {
+    public void juegarPartidos(LinkedList<Equipos> equipos) {
         //preguntar si quiere partidos aleatorios o personalizados y validar que sea una opcion valida y que no sea un numero diferente a 1 o 2
         System.out.println("Desea partidos aleatorios o personalizados?");
         System.out.println("1. Aleatorios");
         System.out.println("2. Personalizados");
         int opcion = sc.nextInt();
 
-        if ( opcion != 1 && opcion != 2) System.out.println("Error, por favor ingrese una opcion valida");
+        if (opcion != 1 && opcion != 2) System.out.println("Error, por favor ingrese una opcion valida");
         else {
             //si elige aleatorios
             if (opcion == 1) {
@@ -151,7 +149,7 @@ public class Torneo implements Partidos {
                 }
             }
         }
-        }
+    }
 
     @Override
     public void mostrarResultados(LinkedList<Equipos> equipos) {
@@ -160,7 +158,6 @@ public class Torneo implements Partidos {
         for (int i = 0; i < equipos.size(); i++) {
             System.out.println(equipos.get(i).getNombreEquipo() + " | " + equipos.get(i).getPartidosJugados() + " | " + equipos.get(i).getPartidosGanados() + " | " + equipos.get(i).getPartidosEmpatados() + " | " + equipos.get(i).getPartidosPerdidos() + " | " + equipos.get(i).getGolesFavor() + " | " + equipos.get(i).getGolesContra() + " | " + equipos.get(i).getPuntos());
         }
-
 
 
     }
@@ -177,11 +174,11 @@ public class Torneo implements Partidos {
             }
         }
         System.out.println("El ganador es " + equipos.get(equipo).getNombreEquipo() + " con " + equipos.get(equipo).getPuntos() + " puntos");
-        
+
     }
 
     //crear variables para agregar 7 jugadores por defecto a cada equipo
-    public static void AgregarJugadoresAutomatico(LinkedList<Equipos> equipos, ArrayList<Jugador>jugadores){
+    public static void AgregarJugadoresAutomatico(LinkedList<Equipos> equipos, ArrayList<Jugador> jugadores) {
         //se le agregan 7 jugadores a cada equipo por defecto con nombres y apellidos aleatorios
         for (int i = 0; i < equipos.size(); i++) {
             for (int j = 0; j < 7; j++) {
@@ -276,211 +273,211 @@ public class Torneo implements Partidos {
                         break;
                 }
 
-                } catch(Exception e){
-                    System.out.println("Error, por favor ingrese un numero valido");
+            } catch (Exception e) {
+                System.out.println("Error, por favor ingrese un numero valido");
 
 
+            }
+        }
+    }
+
+
+    //funciones del menu
+
+    //agregar equipo
+    public static void agregarEquipo(LinkedList<Equipos> equipos) {
+        //menu para agregar equipo o ver equipos, editar equipos y eliminar equipos validado
+        System.out.println("Desea agregar equipo o ver equipos?");
+        System.out.println("1. Agregar equipo");
+        System.out.println("2. Ver equipos");
+        System.out.println("3. editar equipo");
+        System.out.println("4. eliminar equipo");
+        int opcion = sc.nextInt();
+
+        if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
+            System.out.println("Error, por favor ingrese una opcion valida");
+        else {
+            //si elige agregar equipo
+            if (opcion == 1) {
+                //se pide el nombre del equipo
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se crea el objeto equipo y se agrega a la lista de equipos
+                Equipos equipo = new Equipos(nombreEquipo, 0, 0, 0, 0, 0, 0, 0, new LinkedList<Jugador>());
+                equipos.add(equipo);
+            } else if (opcion == 2) {
+                //si elige ver equipos
+                //se muestran todos los equipos
+                for (int i = 0; i < equipos.size(); i++) {
+                    System.out.println(equipos.get(i).getNombreEquipo());
                 }
+            } else if (opcion == 3) {
+                //editar equipos
+                //se pide el nombre del equipo
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se verifica que el equipo exista
+                boolean existe = false;
+                int equipo = 0;
+                for (int i = 0; i < equipos.size(); i++) {
+                    if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
+                        existe = true;
+                        equipo = i;
+                    }
+                }
+                if (!existe) {
+                    System.out.println("El equipo no existe");
+                } else {
+                    //se pide el nuevo nombre del equipo
+                    System.out.println("Ingrese el nuevo nombre del equipo");
+                    String nuevoNombre = sc.next();
+                    //se edita el nombre del equipo
+                    equipos.get(equipo).setNombreEquipo(nuevoNombre);
+                }
+            } else {
+                //eliminar equipos
+                //se pide el nombre del equipo
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se verifica que el equipo exista
+                boolean existe = false;
+                int equipo = 0;
+                for (int i = 0; i < equipos.size(); i++) {
+                    if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
+                        existe = true;
+                        equipo = i;
+                    }
+                    //eliminar equipo
+                    if (existe) {
+                        equipos.remove(equipo);
+                    }
+                }
+            }
+        }
+    }
+
+    //agregar jugadores
+    public static void agregarJugador(ArrayList<Jugador> jugadores, LinkedList<Equipos> equipos) {
+        //preguntar si agregar jugadores o ver todos los jugadores validado
+        System.out.println("Desea agregar jugadores o ver todos los jugadores?");
+        System.out.println("1. Agregar jugadores");
+        System.out.println("2. Ver todos los jugadores");
+        System.out.println("3. editar jugadores");
+        System.out.println("4. eliminar jugadores");
+        int opcion = sc.nextInt();
+        if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
+            System.out.println("Error, por favor ingrese una opcion valida");
+        else {
+            //si elige agregar jugadores
+            if (opcion == 1) {
+                //se pide el nombre del equipo
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se verifica que el equipo exista
+                boolean existe = false;
+                int equipo = 0;
+                for (int i = 0; i < equipos.size(); i++) {
+                    if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
+                        existe = true;
+                        equipo = i;
+                    }
+                }
+                if (!existe) {
+                    System.out.println("El equipo no existe");
+                } else {
+                    //se pide el nombre del jugador
+                    System.out.println("Ingrese el nombre del jugador");
+                    String nombre = sc.next();
+                    //se pide el apellido del jugador
+                    System.out.println("Ingrese el apellido del jugador");
+                    String apellido = sc.next();
+                    //se pide el dorsal del jugador
+                    System.out.println("Ingrese el dorsal del jugador");
+                    String dorsal = sc.next();
+                    //se pide la edad del jugador
+                    System.out.println("Ingrese la edad del jugador");
+                    String edad = sc.next();
+                    //se crea el objeto jugador y se agrega a la lista de jugadores y al equipo
+                    personas persona = new personas(nombre, apellido, edad);
+                    Jugador jugador = new Jugador(dorsal, persona);
+                    jugadores.add(jugador);
+                    equipos.get(equipo).getJugadores().add(jugador);
+                }
+            } else if (opcion == 2) {
+                //si elige ver todos los jugadores
+                //se muestran todos los jugadores
+                for (int i = 0; i < jugadores.size(); i++) {
+                    System.out.println(jugadores.get(i).getPersona().getNombre() + " " + jugadores.get(i).getPersona().getApellido() + " " + jugadores.get(i).getDorsal() + " " + jugadores.get(i).getPersona().getEdad());
+                }
+            } else if (opcion == 3) {
+                //editar jugadores
+                // se pide el el dorsal y el nombre del equipo para editar el jugador
+                System.out.println("Ingrese el dorsal del jugador");
+                String dorsal = sc.next();
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se verifica que el equipo exista
+                boolean existe = false;
+                int equipo = 0;
+                for (int i = 0; i < equipos.size(); i++) {
+                    if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
+                        existe = true;
+                        equipo = i;
+                    }
+                }
+                if (!existe) {
+                    System.out.println("El equipo no existe");
+                } else {
+                    //se pide el nombre del jugador
+                    System.out.println("Ingrese el nombre del jugador");
+                    String nombre = sc.next();
+                    //se pide el apellido del jugador
+                    System.out.println("Ingrese el apellido del jugador");
+                    String apellido = sc.next();
+                    //se pide la edad del jugador
+                    System.out.println("Ingrese la edad del jugador");
+                    String edad = sc.next();
+                    //se busca el jugador y se edita
+                    for (int i = 0; i < equipos.get(equipo).getJugadores().size(); i++) {
+                        if (equipos.get(equipo).getJugadores().get(i).getDorsal().equals(dorsal)) {
+                            equipos.get(equipo).getJugadores().get(i).getPersona().setNombre(nombre);
+                            equipos.get(equipo).getJugadores().get(i).getPersona().setApellido(apellido);
+                            equipos.get(equipo).getJugadores().get(i).getPersona().setEdad(edad);
+                        }
+                    }
+                }
+            } else {
+                //eliminar jugadores
+                //se pide el dorsal y el nombre del equipo para eliminar el jugador
+                System.out.println("Ingrese el dorsal del jugador");
+                String dorsal = sc.next();
+                System.out.println("Ingrese el nombre del equipo");
+                String nombreEquipo = sc.next();
+                //se verifica que el equipo exista
+                boolean existe = false;
+                int equipo = 0;
+                for (int i = 0; i < equipos.size(); i++) {
+                    if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
+                        existe = true;
+                        equipo = i;
+                    }
+                }
+                if (!existe) {
+                    System.out.println("El equipo no existe");
+                } else {
+                    //se busca el jugador y se elimina
+                    for (int i = 0; i < equipos.get(equipo).getJugadores().size(); i++) {
+                        if (equipos.get(equipo).getJugadores().get(i).getDorsal().equals(dorsal)) {
+                            equipos.get(equipo).getJugadores().remove(i);
+                        }
+                    }
+                }
+
+
             }
         }
 
 
-                //funciones del menu
-
-                //agregar equipo
-                public static void agregarEquipo(LinkedList<Equipos> equipos){
-                    //menu para agregar equipo o ver equipos, editar equipos y eliminar equipos validado
-                    System.out.println("Desea agregar equipo o ver equipos?");
-                    System.out.println("1. Agregar equipo");
-                    System.out.println("2. Ver equipos");
-                    System.out.println("3. editar equipo");
-                    System.out.println("4. eliminar equipo");
-                    int opcion = sc.nextInt();
-
-                    if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
-                        System.out.println("Error, por favor ingrese una opcion valida");
-                    else {
-                        //si elige agregar equipo
-                        if (opcion == 1) {
-                            //se pide el nombre del equipo
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se crea el objeto equipo y se agrega a la lista de equipos
-                            Equipos equipo = new Equipos(nombreEquipo, 0, 0, 0, 0, 0, 0, 0, new LinkedList<Jugador>());
-                            equipos.add(equipo);
-                        } else if (opcion == 2) {
-                            //si elige ver equipos
-                            //se muestran todos los equipos
-                            for (int i = 0; i < equipos.size(); i++) {
-                                System.out.println(equipos.get(i).getNombreEquipo());
-                            }
-                        } else if (opcion == 3) {
-                            //editar equipos
-                            //se pide el nombre del equipo
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se verifica que el equipo exista
-                            boolean existe = false;
-                            int equipo = 0;
-                            for (int i = 0; i < equipos.size(); i++) {
-                                if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
-                                    existe = true;
-                                    equipo = i;
-                                }
-                            }
-                            if (!existe) {
-                                System.out.println("El equipo no existe");
-                            } else {
-                                //se pide el nuevo nombre del equipo
-                                System.out.println("Ingrese el nuevo nombre del equipo");
-                                String nuevoNombre = sc.next();
-                                //se edita el nombre del equipo
-                                equipos.get(equipo).setNombreEquipo(nuevoNombre);
-                            }
-                        } else {
-                            //eliminar equipos
-                            //se pide el nombre del equipo
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se verifica que el equipo exista
-                            boolean existe = false;
-                            int equipo = 0;
-                            for (int i = 0; i < equipos.size(); i++) {
-                                if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
-                                    existe = true;
-                                    equipo = i;
-                                }
-                                //eliminar equipo
-                                if (existe) {
-                                    equipos.remove(equipo);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                //agregar jugadores
-                public static void agregarJugador(ArrayList<Jugador> jugadores, LinkedList<Equipos> equipos) {
-                    //preguntar si agregar jugadores o ver todos los jugadores validado
-                    System.out.println("Desea agregar jugadores o ver todos los jugadores?");
-                    System.out.println("1. Agregar jugadores");
-                    System.out.println("2. Ver todos los jugadores");
-                    System.out.println("3. editar jugadores");
-                    System.out.println("4. eliminar jugadores");
-                    int opcion = sc.nextInt();
-                    if (opcion != 1 && opcion != 2 && opcion != 3 && opcion != 4)
-                        System.out.println("Error, por favor ingrese una opcion valida");
-                    else {
-                        //si elige agregar jugadores
-                        if (opcion == 1) {
-                            //se pide el nombre del equipo
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se verifica que el equipo exista
-                            boolean existe = false;
-                            int equipo = 0;
-                            for (int i = 0; i < equipos.size(); i++) {
-                                if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
-                                    existe = true;
-                                    equipo = i;
-                                }
-                            }
-                            if (!existe) {
-                                System.out.println("El equipo no existe");
-                            } else {
-                                //se pide el nombre del jugador
-                                System.out.println("Ingrese el nombre del jugador");
-                                String nombre = sc.next();
-                                //se pide el apellido del jugador
-                                System.out.println("Ingrese el apellido del jugador");
-                                String apellido = sc.next();
-                                //se pide el dorsal del jugador
-                                System.out.println("Ingrese el dorsal del jugador");
-                                String dorsal = sc.next();
-                                //se pide la edad del jugador
-                                System.out.println("Ingrese la edad del jugador");
-                                String edad = sc.next();
-                                //se crea el objeto jugador y se agrega a la lista de jugadores y al equipo
-                                personas persona = new personas(nombre, apellido, edad);
-                                Jugador jugador = new Jugador(dorsal, persona);
-                                jugadores.add(jugador);
-                                equipos.get(equipo).getJugadores().add(jugador);
-                            }
-                        } else if (opcion == 2) {
-                            //si elige ver todos los jugadores
-                            //se muestran todos los jugadores
-                            for (int i = 0; i < jugadores.size(); i++) {
-                                System.out.println(jugadores.get(i).getPersona().getNombre() + " " + jugadores.get(i).getPersona().getApellido() + " " + jugadores.get(i).getDorsal() + " " + jugadores.get(i).getPersona().getEdad());
-                            }
-                        } else if (opcion == 3) {
-                            //editar jugadores
-                            // se pide el el dorsal y el nombre del equipo para editar el jugador
-                            System.out.println("Ingrese el dorsal del jugador");
-                            String dorsal = sc.next();
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se verifica que el equipo exista
-                            boolean existe = false;
-                            int equipo = 0;
-                            for (int i = 0; i < equipos.size(); i++) {
-                                if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
-                                    existe = true;
-                                    equipo = i;
-                                }
-                            }
-                            if (!existe) {
-                                System.out.println("El equipo no existe");
-                            } else {
-                                //se pide el nombre del jugador
-                                System.out.println("Ingrese el nombre del jugador");
-                                String nombre = sc.next();
-                                //se pide el apellido del jugador
-                                System.out.println("Ingrese el apellido del jugador");
-                                String apellido = sc.next();
-                                //se pide la edad del jugador
-                                System.out.println("Ingrese la edad del jugador");
-                                String edad = sc.next();
-                                //se busca el jugador y se edita
-                                for (int i = 0; i < equipos.get(equipo).getJugadores().size(); i++) {
-                                    if (equipos.get(equipo).getJugadores().get(i).getDorsal().equals(dorsal)) {
-                                        equipos.get(equipo).getJugadores().get(i).getPersona().setNombre(nombre);
-                                        equipos.get(equipo).getJugadores().get(i).getPersona().setApellido(apellido);
-                                        equipos.get(equipo).getJugadores().get(i).getPersona().setEdad(edad);
-                                    }
-                                }
-                            }
-                        } else {
-                            //eliminar jugadores
-                            //se pide el dorsal y el nombre del equipo para eliminar el jugador
-                            System.out.println("Ingrese el dorsal del jugador");
-                            String dorsal = sc.next();
-                            System.out.println("Ingrese el nombre del equipo");
-                            String nombreEquipo = sc.next();
-                            //se verifica que el equipo exista
-                            boolean existe = false;
-                            int equipo = 0;
-                            for (int i = 0; i < equipos.size(); i++) {
-                                if (equipos.get(i).getNombreEquipo().equals(nombreEquipo)) {
-                                    existe = true;
-                                    equipo = i;
-                                }
-                            }
-                            if (!existe) {
-                                System.out.println("El equipo no existe");
-                            } else {
-                                //se busca el jugador y se elimina
-                                for (int i = 0; i < equipos.get(equipo).getJugadores().size(); i++) {
-                                    if (equipos.get(equipo).getJugadores().get(i).getDorsal().equals(dorsal)) {
-                                        equipos.get(equipo).getJugadores().remove(i);
-                                    }
-                                }
-                            }
-
-
-                        }
-                    }
-
-
-                }
-            }
+    }
+}
 

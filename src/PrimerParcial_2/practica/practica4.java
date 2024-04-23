@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author isaac
  */
 public class practica4 extends javax.swing.JFrame {
 
     JFileChooser seleccionador = new JFileChooser();
     javax.swing.JTextArea txtDestino;
+
     /**
      * Creates new form practica4
      */
@@ -131,17 +131,17 @@ public class practica4 extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-       int option = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de que desea salir", "Ventana de slaida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int option = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de que desea salir", "Ventana de slaida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.YES_OPTION) System.exit(0);
-        
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         // TODO add your handling code here:
-        javax.swing.JScrollPane jScrollPane1= new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 
 
-         txtDestino= new javax.swing.JTextArea();
+        txtDestino = new javax.swing.JTextArea();
 
 
         txtDestino.setColumns(20);
@@ -150,7 +150,6 @@ public class practica4 extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(120, 90, 320, 140);
-
 
 
         try {
@@ -189,7 +188,7 @@ public class practica4 extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Solo se permiten archivos .txt, .doc, .docx, .csv y .rtf", "Error de formato de archivo", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        // Captura cualquier excepción de tipo IOException que pueda ocurrir durante la lectura del archivo y muestra un mensaje de error en la consola
+            // Captura cualquier excepción de tipo IOException que pueda ocurrir durante la lectura del archivo y muestra un mensaje de error en la consola
         } catch (IOException e) {
             System.out.println("error");
         }
@@ -204,7 +203,7 @@ public class practica4 extends javax.swing.JFrame {
 
     private void btnAcercadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercadeActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Isaac Diaz Rodriguez\nUniversidad Enrique Diaz De Leon\nIngeneria en software","Acerca de", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(rootPane, "Isaac Diaz Rodriguez\nUniversidad Enrique Diaz De Leon\nIngeneria en software", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAcercadeActionPerformed
 
     private void btncopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncopiarActionPerformed
@@ -233,7 +232,7 @@ public class practica4 extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

@@ -2,7 +2,7 @@ package DIagnostico;
 
 import java.util.LinkedList;
 
-public class Equipos{
+public class Equipos {
     private String nombreEquipo;
     private int partidosJugados;
     private int partidosGanados;
@@ -29,8 +29,6 @@ public class Equipos{
         this.jugadores = jugadores;
 
     }
-
-
 
 
     //getters and setters

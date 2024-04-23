@@ -5,11 +5,10 @@
 package DIagnostico;
 
 /**
- *
  * @author isaac
  */
 public class personas {
-  private String nombre, apellido,edad;
+    private String nombre, apellido, edad;
 
     public personas() {
     }
@@ -43,7 +42,6 @@ public class personas {
     public void setEdad(String edad) {
         this.edad = edad;
     }
-  
-    
-  
+
+
 }
