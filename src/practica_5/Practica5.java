@@ -121,12 +121,11 @@ public class Practica5 extends JFrame {
 
         btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardoActionPerformed(evt);
-            }
-        });
         btnArchivo.add(btnGuardar);
+
+        btnSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        btnSalir.setText("Salir");
+        btnArchivo.add(btnSalir);
 
         jMenuBar1.add(btnArchivo);
 
@@ -134,63 +133,28 @@ public class Practica5 extends JFrame {
 
         btnLimpiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnLimpiar.setText("Limpiar");
-
-        //btnLimpiar addactionlistener
-        btnLimpiar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
             }
         });
-
         btnEdicion.add(btnLimpiar);
 
         btnCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnCopiar.setText("copiar");
-
-        //btnCopiar addactionlistener
-        btnCopiar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnCopiarActionPerformed(evt);
-            }
-        });
-
-
         btnEdicion.add(btnCopiar);
 
         btnCortar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnCortar.setText("cortar");
-
-        //btnCortar addactionlistener
-        btnCortar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnCortarActionPerformed(evt);
-            }
-        });
-
         btnEdicion.add(btnCortar);
 
         btnPegar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnPegar.setText("pegar");
-
-        //btnPegar addactionlistener
-        btnPegar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnPegarActionPerformed(evt);
-            }
-        });
         btnEdicion.add(btnPegar);
 
         jMenuBar1.add(btnEdicion);
 
         setJMenuBar(jMenuBar1);
-
-        // Declarar una variable de instancia para el último campo de texto enfocado
-
-
-
-
-
-
 
         pack();
         setLocationRelativeTo(null);
@@ -202,6 +166,7 @@ public class Practica5 extends JFrame {
 
     private void btnNuevaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         // TODO add your handling code here:
+        //se inicializan los elementos de la interfaz grafica
                 buttonGrupo = new ButtonGroup();
         jLabel1 = new JLabel();
         lblNumerodeEncuesta = new JLabel();
@@ -237,6 +202,9 @@ public class Practica5 extends JFrame {
         SliderIngresos = new JSlider();
         btnGuardo = new JButton();
         lblIngresos = new JLabel();
+
+        //se hace reset a la encuesta
+        resetEncuesta();
 
 
         txtNombre.addFocusListener(new FocusAdapter() {
@@ -302,7 +270,7 @@ public class Practica5 extends JFrame {
             }
         });
         getContentPane().add(txtNombre);
-        txtNombre.setBounds(110, 60, 200, 20);
+        txtNombre.setBounds(110, 60, 200, 25);
 
         lblApellidos.setText("Apellidos");
         lblApellidos.setMaximumSize(new Dimension(54, 20));
@@ -319,7 +287,7 @@ public class Practica5 extends JFrame {
             }
         });
         getContentPane().add(txtApellidos);
-        txtApellidos.setBounds(570, 60, 200, 20);
+        txtApellidos.setBounds(570, 60, 200, 25);
 
         lblEdad.setText("Edad");
         lblEdad.setMaximumSize(new Dimension(46, 20));
@@ -708,6 +676,30 @@ public class Practica5 extends JFrame {
         if (lastFocusedTextField != null) {
             lastFocusedTextField.paste();
         }
+    }
+
+    //resetEncuesta
+    private void resetEncuesta() {
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        SpEdad.setValue(0);
+        if (comboGenero.getItemCount() > 0) {
+            comboGenero.setSelectedIndex(0);
+        }
+        buttonGrupo.clearSelection();
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+
+        jTextField1.setText("");
+        jCheckBox9.setSelected(false);
+        SliderIngresos.setValue(5000);
+        lblIngresos.setText("5000$");
     }
 
 
