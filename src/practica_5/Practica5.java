@@ -121,6 +121,15 @@ public class Practica5 extends JFrame {
 
         btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGuardar.setText("Guardar");
+
+        //action del btnGuardar
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+
         btnArchivo.add(btnGuardar);
 
         btnSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -450,163 +459,16 @@ public class Practica5 extends JFrame {
         
     }//GEN-LAST:event_btnNuevaActionPerformed
 
+    //evento del btnGuardar
+    private void btnGuardarActionPerformed(ActionEvent evt) {
+        // TODO add your handling code here:
+        guardarEncuesta();
+    }
 
     //evento del btn guardar
     private void btnGuardoActionPerformed(ActionEvent evt){
 
-        //se inicializan los elementos para guardar
-        String nombre;
-        String apellidos;
-        int edad;
-        String genero;
-        String ultimoGrado = "";
-        int ingresos;
-
-        // Asignar los valores de los campos a las variables
-        nombre = txtNombre.getText();
-        apellidos = txtApellidos.getText();
-        edad = (int)SpEdad.getValue();
-        genero = comboGenero.getSelectedItem().toString();
-
-
-
-
-
-        //validacion de los campos
-        if (nombre.isEmpty() || apellidos.isEmpty() || edad == 0 || genero.equals("Selecciona opcion")) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //validar que el nombre y apellidos no contengan numeros
-        if (nombre.matches(".*\\d.*") || apellidos.matches(".*\\d.*")) {
-            JOptionPane.showMessageDialog(this, "El nombre y apellidos no pueden contener números", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //validar que edad no sea menor de 18 o mayor de 80
-        if (edad < 18 || edad > 80) {
-            JOptionPane.showMessageDialog(this, "La edad debe estar entre 18 y 80 años", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        //validar que se haya seleccionado un ultimo grado
-        if (buttonGrupo.getSelection() == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione su último grado de estudios", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-
-
-
-
-
-
-
-
-
-
-        // Recoger los gustos seleccionados
-        JCheckBox[] gustosCheckBoxes = {jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6, jCheckBox7, jCheckBox8};
-        StringBuilder gustosIntereses = new StringBuilder();
-        boolean gustoSeleccionado = true;
-        for (JCheckBox checkBox : gustosCheckBoxes) {
-            if (checkBox.isSelected()) {
-                 gustoSeleccionado = true;
-
-                if (gustosIntereses.length() > 0) {
-                    gustosIntereses.append(", ");
-                }
-                gustosIntereses.append(checkBox.getText());
-            }
-        }
-        if (jCheckBox9.isSelected()) {
-             gustoSeleccionado = true;
-            if (gustosIntereses.length() > 0) {
-                gustosIntereses.append(", ");
-            }
-            gustosIntereses.append(jTextField1.getText());
-        }
-
-        // Validar que al menos un gusto ha sido seleccionado
-        if (!gustoSeleccionado) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione al menos un gusto", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-
-
-
-
-        RadiobuBachillerato.setActionCommand("Bachillerato");
-        RdBtPostgrado.setActionCommand("Postgrado");
-        RdboLicenciatura.setActionCommand("Licenciatura");
-        RdbtMaestria.setActionCommand("Maestria");
-
-
-        ButtonModel selectedModel = buttonGrupo.getSelection();
-        if (selectedModel != null) {
-            String actionCommand = selectedModel.getActionCommand();
-            if (actionCommand != null) {
-                switch (actionCommand) {
-                    case "Bachillerato":
-                        ultimoGrado = "Bachillerato";
-                        break;
-                    case "Postgrado":
-                        ultimoGrado = "Postgrado";
-                        break;
-                    case "Licenciatura":
-                        ultimoGrado = "Licenciatura";
-                        break;
-                    case "Maestria":
-                        ultimoGrado = "Maestria";
-                        break;
-                }
-            } else {
-                // Manejar el caso en que ningún ActionCommand esté establecido
-                ultimoGrado = "No especificado";
-            }
-        } else {
-            // Manejar el caso en que ningún botón esté seleccionado
-            ultimoGrado = "No especificado";
-        }
-
-        // Añadir el gusto "otro" si está seleccionado
-        if (jCheckBox9.isSelected()) {
-            if (gustosIntereses.length() > 0) {
-                gustosIntereses.append(", ");
-            }
-            gustosIntereses.append(jTextField1.getText());
-        }
-
-        ingresos = SliderIngresos.getValue();
-
-        //guardar la hora y fecha de la encuesta
-        Date fecha = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String fechaHora = formato.format(fecha);
-
-        //se guardar  en el archivo Encuestas.txt en la carpeta del proyecto
-
-
-        try {
-            FileWriter archivo = new FileWriter("./Encuestas.txt", true);
-            PrintWriter escritor = new PrintWriter(archivo);
-            escritor.println("Encuesta #" + numeroEncuesta);
-            escritor.println("Fecha y hora: " + fechaHora);
-            escritor.println("Nombre: " + nombre);
-            escritor.println("Apellidos: " + apellidos);
-            escritor.println("Edad: " + edad);
-            escritor.println("Genero: " + genero);
-            escritor.println("Ultimo grado: " + ultimoGrado);
-            escritor.println("Gustos e intereses: " + gustosIntereses);
-            escritor.println("Ingresos aproximados: " + ingresos);
-            escritor.println();
-            escritor.close();
-            archivo.close();
-        } catch (IOException e) {
-            System.out.println("Error al guardar la encuesta");
-        }
-
-
-
+        guardarEncuesta();
 
     }
 
@@ -700,6 +562,234 @@ public class Practica5 extends JFrame {
         jCheckBox9.setSelected(false);
         SliderIngresos.setValue(5000);
         lblIngresos.setText("5000$");
+    }
+
+    private void guardarEncuesta(){
+
+
+        //se inicializan los elementos para guardar
+        String nombre;
+        String apellidos;
+        int edad;
+        String genero;
+        String ultimoGrado = "";
+        int ingresos;
+
+        // Asignar los valores de los campos a las variables
+        nombre = txtNombre.getText();
+        apellidos = txtApellidos.getText();
+        edad = (int)SpEdad.getValue();
+        genero = comboGenero.getSelectedItem().toString();
+
+
+
+
+
+        //validacion de los campos
+        if (nombre.isEmpty() || apellidos.isEmpty() || edad == 0 || genero.equals("Selecciona opcion")) {
+            JOptionPane.showMessageDialog(this, "Por favor, corriga los campos en rojo", "Error", JOptionPane.ERROR_MESSAGE);
+            //solo los marcos de los que estan mal se vuelven rojos
+            if (nombre.isEmpty()) {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (apellidos.isEmpty()) {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (edad == 0) {
+                SpEdad.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                SpEdad.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (genero.equals("Selecciona opcion")) {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione un genero", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+
+
+
+            return;
+        }
+        //validar que el nombre y apellidos no contengan numeros
+        if (nombre.matches(".*\\d.*") || apellidos.matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(this, "El nombre y apellidos no pueden contener números", "Error", JOptionPane.ERROR_MESSAGE);
+            //solo los que estan mal se pone su marco en rojo
+            if (nombre.matches(".*\\d.*")) {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (apellidos.matches(".*\\d.*")) {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+
+
+
+
+            return;
+        }
+        //validar que edad no sea menor de 18 o mayor de 80
+        if (edad < 18 || edad > 80) {
+            JOptionPane.showMessageDialog(this, "La edad debe estar entre 18 y 80 años", "Error", JOptionPane.ERROR_MESSAGE);
+            //se marca en rojo, no el fondo, solo el marco
+            SpEdad.setBorder(BorderFactory.createLineBorder(Color.red));
+
+
+
+            return;
+        } else {
+            SpEdad.setBorder(BorderFactory.createLineBorder(Color.black));
+        }
+        //validar que se haya seleccionado un ultimo grado
+        if (buttonGrupo.getSelection() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione su último grado de estudios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        // Recoger los gustos seleccionados
+        JCheckBox[] gustosCheckBoxes = {jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6, jCheckBox7, jCheckBox8};
+        StringBuilder gustosIntereses = new StringBuilder();
+        boolean gustoSeleccionado = true;
+        for (JCheckBox checkBox : gustosCheckBoxes) {
+            if (checkBox.isSelected()) {
+                gustoSeleccionado = true;
+
+                if (gustosIntereses.length() > 0) {
+                    gustosIntereses.append(", ");
+                }
+                gustosIntereses.append(checkBox.getText());
+            }
+        }
+        if (jCheckBox9.isSelected()) {
+            gustoSeleccionado = true;
+            if (gustosIntereses.length() > 0) {
+                gustosIntereses.append(", ");
+            }
+            gustosIntereses.append(jTextField1.getText());
+        }
+
+        // Validar que al menos un gusto ha sido seleccionado
+        if (!gustoSeleccionado) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione al menos un gusto", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+
+
+
+        RadiobuBachillerato.setActionCommand("Bachillerato");
+        RdBtPostgrado.setActionCommand("Postgrado");
+        RdboLicenciatura.setActionCommand("Licenciatura");
+        RdbtMaestria.setActionCommand("Maestria");
+
+
+        ButtonModel selectedModel = buttonGrupo.getSelection();
+        if (selectedModel != null) {
+            String actionCommand = selectedModel.getActionCommand();
+            if (actionCommand != null) {
+                switch (actionCommand) {
+                    case "Bachillerato":
+                        ultimoGrado = "Bachillerato";
+                        break;
+                    case "Postgrado":
+                        ultimoGrado = "Postgrado";
+                        break;
+                    case "Licenciatura":
+                        ultimoGrado = "Licenciatura";
+                        break;
+                    case "Maestria":
+                        ultimoGrado = "Maestria";
+                        break;
+                }
+            } else {
+                // Manejar el caso en que ningún ActionCommand esté establecido
+                ultimoGrado = "No especificado";
+            }
+        } else {
+            // Manejar el caso en que ningún botón esté seleccionado
+            ultimoGrado = "No especificado";
+        }
+
+        // Añadir el gusto "otro" si está seleccionado
+        if (jCheckBox9.isSelected()) {
+            if (gustosIntereses.length() > 0) {
+                gustosIntereses.append(", ");
+            }
+            gustosIntereses.append(jTextField1.getText());
+        }
+
+        ingresos = SliderIngresos.getValue();
+
+        //guardar la hora y fecha de la encuesta
+        Date fecha = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String fechaHora = formato.format(fecha);
+
+        //se guardar  en el archivo Encuestas.txt en la carpeta del proyecto
+
+
+        try {
+            FileWriter archivo = new FileWriter("./Encuestas.txt", true);
+            PrintWriter escritor = new PrintWriter(archivo);
+            escritor.println("Encuesta #" + numeroEncuesta);
+            escritor.println("Fecha y hora: " + fechaHora);
+            escritor.println("Nombre: " + nombre);
+            escritor.println("Apellidos: " + apellidos);
+            escritor.println("Edad: " + edad);
+            escritor.println("Genero: " + genero);
+            escritor.println("Ultimo grado: " + ultimoGrado);
+            escritor.println("Gustos e intereses: " + gustosIntereses);
+            escritor.println("Ingresos aproximados: " + ingresos);
+            escritor.println();
+            escritor.close();
+            archivo.close();
+        } catch (IOException e) {
+            System.out.println("Error al guardar la encuesta");
+        }
+
+
+
+        //se hace reset a la encuesta
+        resetEncuesta();
+
+        //se vuelve a leer el archivo para actualizar el numero de encuesta
+        try {
+            FileReader archivo = new FileReader("./Encuestas.txt");
+            BufferedReader lector = new BufferedReader(archivo);
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                if (linea.startsWith("Encuesta #")) {
+                    //se le suma 1 al numero de encuesta
+                    numeroEncuesta = Integer.parseInt(linea.substring(10)) + 1;
+
+                    //se actualiza el numero de encuesta el valor del numeroEncuesta
+                    lblNumerodeEncuesta.setText(String.valueOf(numeroEncuesta));
+                }
+            }
+            lector.close();
+            archivo.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo");
+        }
+
+
+
     }
 
 
