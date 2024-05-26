@@ -121,12 +121,20 @@ public class Practica5 extends JFrame {
 
         btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGuardar.setText("Guardar");
+
+        //action del btnGuardar
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardoActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
+
+
         btnArchivo.add(btnGuardar);
+
+        btnSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        btnSalir.setText("Salir");
+        btnArchivo.add(btnSalir);
 
         jMenuBar1.add(btnArchivo);
 
@@ -134,63 +142,28 @@ public class Practica5 extends JFrame {
 
         btnLimpiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnLimpiar.setText("Limpiar");
-
-        //btnLimpiar addactionlistener
-        btnLimpiar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
             }
         });
-
         btnEdicion.add(btnLimpiar);
 
         btnCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnCopiar.setText("copiar");
-
-        //btnCopiar addactionlistener
-        btnCopiar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnCopiarActionPerformed(evt);
-            }
-        });
-
-
         btnEdicion.add(btnCopiar);
 
         btnCortar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnCortar.setText("cortar");
-
-        //btnCortar addactionlistener
-        btnCortar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnCortarActionPerformed(evt);
-            }
-        });
-
         btnEdicion.add(btnCortar);
 
         btnPegar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnPegar.setText("pegar");
-
-        //btnPegar addactionlistener
-        btnPegar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnPegarActionPerformed(evt);
-            }
-        });
         btnEdicion.add(btnPegar);
 
         jMenuBar1.add(btnEdicion);
 
         setJMenuBar(jMenuBar1);
-
-        // Declarar una variable de instancia para el último campo de texto enfocado
-
-
-
-
-
-
 
         pack();
         setLocationRelativeTo(null);
@@ -202,6 +175,7 @@ public class Practica5 extends JFrame {
 
     private void btnNuevaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         // TODO add your handling code here:
+        //se inicializan los elementos de la interfaz grafica
                 buttonGrupo = new ButtonGroup();
         jLabel1 = new JLabel();
         lblNumerodeEncuesta = new JLabel();
@@ -237,6 +211,9 @@ public class Practica5 extends JFrame {
         SliderIngresos = new JSlider();
         btnGuardo = new JButton();
         lblIngresos = new JLabel();
+
+        //se hace reset a la encuesta
+        resetEncuesta();
 
 
         txtNombre.addFocusListener(new FocusAdapter() {
@@ -302,7 +279,7 @@ public class Practica5 extends JFrame {
             }
         });
         getContentPane().add(txtNombre);
-        txtNombre.setBounds(110, 60, 200, 20);
+        txtNombre.setBounds(110, 60, 200, 25);
 
         lblApellidos.setText("Apellidos");
         lblApellidos.setMaximumSize(new Dimension(54, 20));
@@ -319,7 +296,7 @@ public class Practica5 extends JFrame {
             }
         });
         getContentPane().add(txtApellidos);
-        txtApellidos.setBounds(570, 60, 200, 20);
+        txtApellidos.setBounds(570, 60, 200, 25);
 
         lblEdad.setText("Edad");
         lblEdad.setMaximumSize(new Dimension(46, 20));
@@ -482,9 +459,113 @@ public class Practica5 extends JFrame {
         
     }//GEN-LAST:event_btnNuevaActionPerformed
 
+    //evento del btnGuardar
+    private void btnGuardarActionPerformed(ActionEvent evt) {
+        // TODO add your handling code here:
+        guardarEncuesta();
+    }
 
     //evento del btn guardar
     private void btnGuardoActionPerformed(ActionEvent evt){
+
+        guardarEncuesta();
+
+    }
+
+
+    //evento del btnLimpiar
+    private void btnLimpiarActionPerformed(ActionEvent evt) {
+        // TODO add your handling code here:
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        SpEdad.setValue(0);
+        comboGenero.setSelectedIndex(0);
+        buttonGrupo.clearSelection();
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+
+        //se actualiza el numero de encuesta el valor del numeroEncuesta
+        lblNumerodeEncuesta.setText(String.valueOf(numeroEncuesta));
+        jTextField1.setText("");
+        jCheckBox9.setSelected(false);
+        SliderIngresos.setValue(5000);
+        lblIngresos.setText("5000$");
+
+
+    }
+
+    //evento del slider
+
+
+
+
+
+
+    private void SliderIngresosStateChanged(ChangeEvent evt) {//GEN-FIRST:event_SliderIngresosStateChanged
+        // TODO add your handling code here:
+        lblIngresos.setText(String.valueOf(SliderIngresos.getValue())+"$");
+    }//GEN-LAST:event_SliderIngresosStateChanged
+
+
+    //evento del btnSalir
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        System.exit(0);
+    }
+
+
+
+
+    private void btnCopiarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (lastFocusedTextField != null && lastFocusedTextField.getSelectedText() != null) {
+            lastFocusedTextField.copy();
+        }
+    }
+
+    private void btnCortarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (lastFocusedTextField != null && lastFocusedTextField.getSelectedText() != null) {
+            lastFocusedTextField.cut();
+        }
+    }
+
+    private void btnPegarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (lastFocusedTextField != null) {
+            lastFocusedTextField.paste();
+        }
+    }
+
+    //resetEncuesta
+    private void resetEncuesta() {
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        SpEdad.setValue(0);
+        if (comboGenero.getItemCount() > 0) {
+            comboGenero.setSelectedIndex(0);
+        }
+        buttonGrupo.clearSelection();
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+        jCheckBox7.setSelected(false);
+        jCheckBox8.setSelected(false);
+
+        jTextField1.setText("");
+        jCheckBox9.setSelected(false);
+        SliderIngresos.setValue(5000);
+        lblIngresos.setText("5000$");
+    }
+
+    private void guardarEncuesta(){
+
 
         //se inicializan los elementos para guardar
         String nombre;
@@ -506,18 +587,63 @@ public class Practica5 extends JFrame {
 
         //validacion de los campos
         if (nombre.isEmpty() || apellidos.isEmpty() || edad == 0 || genero.equals("Selecciona opcion")) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, corriga los campos en rojo", "Error", JOptionPane.ERROR_MESSAGE);
+            //solo los marcos de los que estan mal se vuelven rojos
+            if (nombre.isEmpty()) {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (apellidos.isEmpty()) {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (edad == 0) {
+                SpEdad.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                SpEdad.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (genero.equals("Selecciona opcion")) {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione un genero", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+
+
+
             return;
         }
         //validar que el nombre y apellidos no contengan numeros
         if (nombre.matches(".*\\d.*") || apellidos.matches(".*\\d.*")) {
             JOptionPane.showMessageDialog(this, "El nombre y apellidos no pueden contener números", "Error", JOptionPane.ERROR_MESSAGE);
+            //solo los que estan mal se pone su marco en rojo
+            if (nombre.matches(".*\\d.*")) {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            if (apellidos.matches(".*\\d.*")) {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.red));
+            } else {
+                txtApellidos.setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+
+
+
+
             return;
         }
         //validar que edad no sea menor de 18 o mayor de 80
         if (edad < 18 || edad > 80) {
             JOptionPane.showMessageDialog(this, "La edad debe estar entre 18 y 80 años", "Error", JOptionPane.ERROR_MESSAGE);
+            //se marca en rojo, no el fondo, solo el marco
+            SpEdad.setBorder(BorderFactory.createLineBorder(Color.red));
+
+
+
             return;
+        } else {
+            SpEdad.setBorder(BorderFactory.createLineBorder(Color.black));
         }
         //validar que se haya seleccionado un ultimo grado
         if (buttonGrupo.getSelection() == null) {
@@ -541,7 +667,7 @@ public class Practica5 extends JFrame {
         boolean gustoSeleccionado = true;
         for (JCheckBox checkBox : gustosCheckBoxes) {
             if (checkBox.isSelected()) {
-                 gustoSeleccionado = true;
+                gustoSeleccionado = true;
 
                 if (gustosIntereses.length() > 0) {
                     gustosIntereses.append(", ");
@@ -550,7 +676,7 @@ public class Practica5 extends JFrame {
             }
         }
         if (jCheckBox9.isSelected()) {
-             gustoSeleccionado = true;
+            gustoSeleccionado = true;
             if (gustosIntereses.length() > 0) {
                 gustosIntereses.append(", ");
             }
@@ -639,75 +765,31 @@ public class Practica5 extends JFrame {
 
 
 
+        //se hace reset a la encuesta
+        resetEncuesta();
 
-    }
+        //se vuelve a leer el archivo para actualizar el numero de encuesta
+        try {
+            FileReader archivo = new FileReader("./Encuestas.txt");
+            BufferedReader lector = new BufferedReader(archivo);
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                if (linea.startsWith("Encuesta #")) {
+                    //se le suma 1 al numero de encuesta
+                    numeroEncuesta = Integer.parseInt(linea.substring(10)) + 1;
 
-
-    //evento del btnLimpiar
-    private void btnLimpiarActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        SpEdad.setValue(0);
-        comboGenero.setSelectedIndex(0);
-        buttonGrupo.clearSelection();
-        jCheckBox1.setSelected(false);
-        jCheckBox2.setSelected(false);
-        jCheckBox3.setSelected(false);
-        jCheckBox4.setSelected(false);
-        jCheckBox5.setSelected(false);
-        jCheckBox6.setSelected(false);
-        jCheckBox7.setSelected(false);
-        jCheckBox8.setSelected(false);
-
-        //se actualiza el numero de encuesta el valor del numeroEncuesta
-        lblNumerodeEncuesta.setText(String.valueOf(numeroEncuesta));
-        jTextField1.setText("");
-        jCheckBox9.setSelected(false);
-        SliderIngresos.setValue(5000);
-        lblIngresos.setText("5000$");
-
-
-    }
-
-    //evento del slider
-
-
-
-
-
-
-    private void SliderIngresosStateChanged(ChangeEvent evt) {//GEN-FIRST:event_SliderIngresosStateChanged
-        // TODO add your handling code here:
-        lblIngresos.setText(String.valueOf(SliderIngresos.getValue())+"$");
-    }//GEN-LAST:event_SliderIngresosStateChanged
-
-
-    //evento del btnSalir
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        System.exit(0);
-    }
-
-
-
-
-    private void btnCopiarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (lastFocusedTextField != null && lastFocusedTextField.getSelectedText() != null) {
-            lastFocusedTextField.copy();
+                    //se actualiza el numero de encuesta el valor del numeroEncuesta
+                    lblNumerodeEncuesta.setText(String.valueOf(numeroEncuesta));
+                }
+            }
+            lector.close();
+            archivo.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo");
         }
-    }
 
-    private void btnCortarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (lastFocusedTextField != null && lastFocusedTextField.getSelectedText() != null) {
-            lastFocusedTextField.cut();
-        }
-    }
 
-    private void btnPegarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (lastFocusedTextField != null) {
-            lastFocusedTextField.paste();
-        }
+
     }
 
 

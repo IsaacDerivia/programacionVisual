@@ -1,0 +1,45 @@
+{
+  "Autor": "Isaac",
+  "Docentes": [
+    {
+      "Nombre": "Estrada Rosas Alberto",
+      "Materias": {
+        "1": "Ecuaciones Diferenciales",
+        "2": "Metodos Numericos"
+      }
+    },
+    {
+      "Nombre": "Hernandes Barajas Edgar",
+      "Materias": "Programacion III (Visual)"
+
+    },
+    {
+      "Nombre": "Reynaga Curiel Alan Francisco",
+      "Materias": "Estructura de Archivos"
+    },
+    {
+      "Nombre": "Alcaraz Josue Alejando",
+      "Materias": "Sistemas Digitales"
+    },
+    {
+        "Nombre": "Luna Georgina",
+        "Materias": "Lenguajes de Programacion"
+    },
+    {
+        "Nombre": "Lopez de Alba Miriam",
+        "Materias": "Desarrollo Integral"
+    },
+    {
+        "Nombre": "Vazques Uribe Carlos Alberto",
+        "Materias": "Lengua Extranjera"
+    }
+
+
+
+
+
+  ]
+
+  }
+
+
