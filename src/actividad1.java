@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package SegundoParcial;
-
-import java.awt.Color;
-import java.awt.Graphics;
 
 /**
  *
  * @author isaac
  */
-public class Grafica1 extends javax.swing.JFrame {
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class actividad1 extends javax.swing.JFrame {
 
     /**
-     * Creates new form Grafica1
+     * Creates new form actividad1
      */
-    public Grafica1() {
+    public actividad1() {
         initComponents();
     }
 
@@ -32,6 +31,7 @@ public class Grafica1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 400));
         setMinimumSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(400, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 400));
 
@@ -47,6 +47,7 @@ public class Grafica1 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -66,43 +67,49 @@ public class Grafica1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Grafica1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(actividad1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Grafica1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(actividad1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Grafica1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(actividad1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Grafica1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(actividad1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Grafica1().setVisible(true);
+                new actividad1().setVisible(true);
             }
         });
     }
-    
+
+    //metodo para hacer una grafica
     @Override
     public void paint (Graphics g){
         setBackground(Color.BLACK);
         g.setColor(Color.PINK);
-        
-       
-        
+
+
+
         g.drawLine(200, 0, 200, 400);
         g.drawLine(0, 200, 400, 200);
-        g.drawLine(400, 0, 0, 400);
-        g.drawLine(0, 0, 400, 400);
+
+        //poner en numeros romanos los cuadrantes utilizando los datos de arriba
+        g.drawString("I", 300, 100);
+        g.drawString("II", 100, 100);
+        g.drawString("III", 100, 300);
+        g.drawString("IV", 300, 300);
         
-        
-        
-        
-        
+
+
+
+
+
     }
-    
-    
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
