@@ -66,7 +66,7 @@ public class main extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnInformacion);
-        btnInformacion.setBounds(700, 40, 100, 16);
+        btnInformacion.setBounds(700, 40, 100, 19);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 1200, 100);
@@ -74,7 +74,7 @@ public class main extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Elige el Metodo ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 170, 180, 30);
+        jLabel2.setBounds(40, 170, 220, 30);
 
         btnReglaFalsa.setText("Regla Falsa");
         btnReglaFalsa.setBorder(null);

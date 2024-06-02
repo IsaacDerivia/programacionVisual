@@ -40,6 +40,7 @@ public class Babilonico extends JFrame {
         btncalcular = new JButton();
         btnborrar = new JButton();
         btnsalir = new JButton();
+        menu = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 600));
@@ -100,7 +101,30 @@ public class Babilonico extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+
+        //se agrega el boton menu al panel
+        getContentPane().add(menu);
+        //se le da la posicion del boton
+        menu.setBounds(320, 530, 100, 25);
+        //se le da el texto al boton
+        menu.setText("Menu");
+        //se le da la accion al boton
+        menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionPerformed(evt);
+            }
+        });
+
+
     }// </editor-fold>//GEN-END:initComponents
+
+    //metodo para regresar al menu
+    private void menuActionPerformed(java.awt.event.ActionEvent evt) {
+        //se abre la ventana de menu y se oculta esta
+        main m = new main();
+        m.setVisible(true);
+        this.setVisible(false);
+    }
 
     private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
         // TODO add your handling code here:
@@ -316,5 +340,6 @@ public class Babilonico extends JFrame {
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JTextField txtNumero;
+    private JButton menu;
     // End of variables declaration//GEN-END:variables
 }

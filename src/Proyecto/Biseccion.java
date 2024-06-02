@@ -59,6 +59,7 @@ public class Biseccion extends JFrame {
         jLabel12 = new JLabel();
         TxtDecimales = new JTextField();
         btnGuardado = new JButton();
+        menu = new JButton();
 
         jTextField10.setText("jTextField10");
 
@@ -154,8 +155,28 @@ public class Biseccion extends JFrame {
         getContentPane().add(btnGuardado);
         btnGuardado.setBounds(20, 460, 72, 25);
 
+        //se agrega el boton menu al frame
+        menu.setText("Menu");
+        menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(menu);
+        //se establece la posicion del boton menu
+        menu.setBounds(20, 500, 72, 25);
+
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //metodo para regresar al menu
+    private void menuActionPerformed(java.awt.event.ActionEvent evt) {
+        //se hace visible el menu y se oculta esta ventana
+        main m = new main();
+        m.setVisible(true);
+        this.setVisible(false);
+    }
 
     private void JtexVariable6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JtexVariable6ActionPerformed
         // TODO add your handling code here:
@@ -508,5 +529,6 @@ public class Biseccion extends JFrame {
     private JTextField txtVariable2;
     private JTextField txtVariableA;
     private JTextField txtvariable5;
+    private JButton menu;
     // End of variables declaration//GEN-END:variables
 }

@@ -144,12 +144,29 @@ public class panel extends JPanel {
         txtField10.setBounds(200, 668, 100, 50); // Ajusta la posición x
         add(txtField10);
 
+        //crea un boton llamado menu al lado del btn calcular
+        JButton btnMenu = new JButton("Menu");
+        btnMenu.setBounds(1064, 26, 90, 36);
+        btnMenu.setBackground(new Color(255, 138, 132)); // Establece el color de fondo a #FF8A84
+        btnMenu.setBorderPainted(false); // Desactiva el dibujo del borde del botón
+        add(btnMenu);
+
+
 
         // Añade un borde vacío con título "Método de la Regla Falsa"
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(255, 138, 132)), "Método de la Regla Falsa", 0, 0, new Font("Tahoma", Font.BOLD, 18), new Color(255, 138, 132)));
 
 
 
+
+        //evento para el boton menu
+        btnMenu.addActionListener(e -> {
+            //se hace visible main y se esconde el panel
+            main main = new main();
+            main.setVisible(true);
+            this.setVisible(false);
+
+        });
 
         //btncalcular y btnlimpiar
         btnCalcular.addActionListener(e -> {
