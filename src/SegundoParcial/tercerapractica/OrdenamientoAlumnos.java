@@ -5,8 +5,13 @@
 package SegundoParcial.tercerapractica;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.*;
 import java.util.ArrayList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -19,7 +24,11 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
      */
     public OrdenamientoAlumnos() {
         initComponents();
+        
     }
+    private javax.swing.JComboBox<String> comboxAlumno;
+    private javax.swing.JLabel LabelAlumno;
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,6 +43,7 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         btnCargarAlumnos = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
+        btnNuevaencuesta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +65,14 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
 
         btnSalir.setText("Salir");
         jMenu1.add(btnSalir);
+
+        btnNuevaencuesta.setText("Nueva encuentas ");
+        btnNuevaencuesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaencuestaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnNuevaencuesta);
 
         jMenuBar1.add(jMenu1);
 
@@ -165,6 +183,24 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCargarAlumnosActionPerformed
 
+    private void btnNuevaencuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaencuestaActionPerformed
+        // TODO add your handling code here:
+
+
+        LabelAlumno = new javax.swing.JLabel();
+        comboxAlumno = new javax.swing.JComboBox<>();
+        
+        LabelAlumno.setText("Seleccione el alumno que realizara la encuetas");
+        getContentPane().add(LabelAlumno);
+        LabelAlumno.setBounds(10, 20, 260, 50);
+
+        comboxAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(comboxAlumno);
+        comboxAlumno.setBounds(10, 70, 250, 22);
+        
+
+    }//GEN-LAST:event_btnNuevaencuestaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -202,6 +238,7 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnCargarAlumnos;
+    private javax.swing.JMenuItem btnNuevaencuesta;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
