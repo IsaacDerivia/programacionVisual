@@ -28,6 +28,10 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
     }
     private javax.swing.JComboBox<String> comboxAlumno;
     private javax.swing.JLabel LabelAlumno;
+    private javax.swing.JComboBox<String> comboboxmaestro;
+    private javax.swing.JLabel lblmaestro;
+
+
 
 
     /**
@@ -194,9 +198,114 @@ public class OrdenamientoAlumnos extends javax.swing.JFrame {
         getContentPane().add(LabelAlumno);
         LabelAlumno.setBounds(10, 20, 260, 50);
 
-        comboxAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+       //se crea un arraylist para guardar los nombres de los alumnos
+        ArrayList<String> alumnos = new ArrayList<>();
+        //se añade un espacio en blanco al principio
+        alumnos.add("");
+        //se lee el archivo de alumnos
+        File archivo = new File("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Alumnos.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while((linea = br.readLine()) != null){
+                //se añaden los nombres al arraylist
+                alumnos.add(linea);
+            }
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Error al leer archivo");
+        }
+        //se ordenan los nombres de los alumnos
+        alumnos.sort(String::compareToIgnoreCase);
+
+        //se añaden los nombres al combobox
+        comboxAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(alumnos.toArray(new String[0])));
         getContentPane().add(comboxAlumno);
-        comboxAlumno.setBounds(10, 70, 250, 22);
+        comboxAlumno.setBounds(10, 70, 260, 25);
+
+
+        //se hace una accion para el combobox
+        comboxAlumno.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedItem = (String)e.getItem();
+                    if (!selectedItem.isEmpty()) {
+
+                        //se crea un lbl que dice el nombre de alumno
+                        javax.swing.JLabel lblAlumno = new javax.swing.JLabel();
+                        lblAlumno.setText("Alumno seleccionado: " + selectedItem);
+                        getContentPane().add(lblAlumno);
+                        lblAlumno.setBounds(10, 100, 260, 25);
+
+                        //se ocultan el combobox y el lbl
+                        comboxAlumno.setVisible(false);
+                        LabelAlumno.setVisible(false);
+
+
+                        // Aquí puedes agregar el código que se ejecutará cuando se seleccione un nombre
+                        lblmaestro = new javax.swing.JLabel();
+                        comboboxmaestro = new javax.swing.JComboBox<>();
+                        
+                        lblmaestro.setText("Seleccione maestro a evaluar");
+                        getContentPane().add(lblmaestro);
+                        lblmaestro.setBounds(30, 40, 210, 19);
+
+                   // Creación de un nuevo objeto JSONParser para analizar el contenido de un archivo JSON.
+                    JSONParser parser = new JSONParser();
+
+                    try {
+                        // Lectura y análisis del archivo JSON ubicado en la ruta especificada.
+                        Object obj = parser.parse(new FileReader("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/DocenTes.json"));
+
+                        // Conversión del objeto analizado a un objeto JSONObject.
+                        JSONObject jsonObject = (JSONObject) obj;
+
+                        // Extracción del array JSON "Docentes" del objeto JSONObject.
+                        JSONArray docentes = (JSONArray) jsonObject.get("Docentes");
+
+                        // Creación de un ArrayList para almacenar los nombres de los maestros.
+                        ArrayList<String> maestros = new ArrayList<>();
+
+                        // Adición de un espacio en blanco al principio de la lista de maestros.
+                        maestros.add("");
+
+                        // Iteración sobre cada objeto en el array JSON "Docentes".
+                        for(Object docenteObj : docentes){
+                            // Conversión del objeto a un objeto JSONObject.
+                            JSONObject docente = (JSONObject) docenteObj;
+
+                            // Extracción del valor de la clave "Nombre" del objeto JSONObject.
+                            String nombre = (String) docente.get("Nombre");
+
+                            // Adición del nombre del maestro a la lista de maestros.
+                            maestros.add(nombre);
+                        }
+
+                        // Ordenación de la lista de maestros en orden alfabético (ignorando las diferencias de mayúsculas y minúsculas).
+                        maestros.sort(String::compareToIgnoreCase);
+
+                        // Configuración del modelo del JComboBox "comboboxmaestro" con los nombres de los maestros en la lista.
+                        comboboxmaestro.setModel(new javax.swing.DefaultComboBoxModel<>(maestros.toArray(new String[0])));
+
+                        // Adición del JComboBox "comboboxmaestro" al contenedor de contenido del JFrame.
+                        getContentPane().add(comboboxmaestro);
+
+                        // Establecimiento de la posición y tamaño del JComboBox "comboboxmaestro".
+                        comboboxmaestro.setBounds(30, 80, 240, 25);
+
+                        
+
+
+                    } catch (Exception e1) {
+                        // Impresión de un mensaje de error en la consola si ocurre alguna excepción durante la lectura o el análisis del archivo.
+                        System.out.println("Error al leer archivo");
+                    }
+
+                        
+                    }
+                }
+            }
+        });
         
 
     }//GEN-LAST:event_btnNuevaencuestaActionPerformed
