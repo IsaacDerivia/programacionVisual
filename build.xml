@@ -8,8 +8,12 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="unedl_PV_2024A" default="default" basedir=".">
-    <description>Builds, tests, and runs the project unedl_PV_2024A.</description>
+
     <import file="nbproject/build-impl.xml"/>
+    dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    }
     <!--
 
     There exist several targets which are by default empty and which can be 

@@ -6,40 +6,40 @@
       "Materias": {
         "1": "Ecuaciones Diferenciales",
         "2": "Metodos Numericos"
-      }
+      },
+      "id": "1"
     },
     {
       "Nombre": "Hernandes Barajas Edgar",
-      "Materias": "Programacion III (Visual)"
-
+      "Materias": "Programacion III (Visual)",
+      "id": "2"
     },
     {
       "Nombre": "Reynaga Curiel Alan Francisco",
-      "Materias": "Estructura de Archivos"
+      "Materias": "Estructura de Archivos",
+      "id": "3"
     },
     {
       "Nombre": "Alcaraz Josue Alejando",
-      "Materias": "Sistemas Digitales"
+      "Materias": "Sistemas Digitales",
+      "id": "4"
     },
     {
-        "Nombre": "Luna Georgina",
-        "Materias": "Lenguajes de Programacion"
+      "Nombre": "Luna Georgina",
+      "Materias": "Lenguajes de Programacion",
+      "id": "5"
     },
     {
-        "Nombre": "Lopez de Alba Miriam",
-        "Materias": "Desarrollo Integral"
+      "Nombre": "Lopez de Alba Miriam",
+      "Materias": "Desarrollo Integral",
+      "id": "6"
     },
     {
-        "Nombre": "Vazques Uribe Carlos Alberto",
-        "Materias": "Lengua Extranjera"
+      "Nombre": "Vazques Uribe Carlos Alberto",
+      "Materias": "Lengua Extranjera",
+      "id": "7"
     }
-
-
-
-
-
   ]
-
-  }
+}
 
 
