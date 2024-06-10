@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 //imports para leer el archivo json
 import com.opencsv.exceptions.CsvValidationException;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -58,6 +60,8 @@ public class Encuesta extends JFrame {
             String[] line;
             while ((line = reader.readNext()) != null) {
                 lines.add(line);
+                // Imprimir cada línea para depuración
+                System.out.println("Leído del CSV: " + Arrays.toString(line));
             }
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
@@ -70,28 +74,40 @@ public class Encuesta extends JFrame {
 
     private DefaultCategoryDataset processCsvData(List<String[]> lines, String selectedTeacher) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (String[] line : lines) {
-            String normalizedSelectedTeacher = selectedTeacher.trim().replaceAll("\\s+", " ").toLowerCase();
-            String normalizedLineTeacher = line[0].trim().replaceAll("\\s+", " ").toLowerCase();
+        String normalizedSelectedTeacher = selectedTeacher.replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
+        Map<String, Integer> responseCount = new HashMap<>();
+
+        for (int j = 1; j < lines.size(); j++) { // Empieza desde 1 para ignorar la cabecera
+            String[] line = lines.get(j);
+            String normalizedLineTeacher = line[0].replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
             if (normalizedLineTeacher.equals(normalizedSelectedTeacher)) {
                 for (int i = 2; i < line.length; i++) {
                     String respuesta = line[i];
-                    Number prevValue = dataset.getValue(respuesta, "Respuestas");
-                    if (prevValue == null) {
-                        dataset.addValue(1, respuesta, "Respuestas");
-                    } else {
-                        dataset.addValue(prevValue.intValue() + 1, respuesta, "Respuestas");
-                    }
+                    responseCount.put(respuesta, responseCount.getOrDefault(respuesta, 0) + 1);
                 }
             }
         }
+
+        // Añadir las respuestas al dataset
+        for (Map.Entry<String, Integer> entry : responseCount.entrySet()) {
+            dataset.addValue(entry.getValue(), "Respuestas", entry.getKey());
+        }
+
+        // Imprimir el dataset para depuración
+        for (int row = 0; row < dataset.getRowCount(); row++) {
+            for (int column = 0; column < dataset.getColumnCount(); column++) {
+                System.out.println("Categoria: " + dataset.getRowKey(row) + ", Respuesta: " + dataset.getColumnKey(column) + ", Valor: " + dataset.getValue(row, column));
+            }
+        }
+
         return dataset;
     }
+
 
     private void createChart(DefaultCategoryDataset dataset, String selectedTeacher) {
         JFreeChart chart = ChartFactory.createBarChart(
                 "Respuestas de la encuesta para " + selectedTeacher,
-                "Respuestas",
+                "Preguntas",
                 "Cantidad",
                 dataset,
                 PlotOrientation.VERTICAL,
@@ -99,8 +115,22 @@ public class Encuesta extends JFrame {
                 true,
                 false
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.BLACK);
+
+
+
+
+
+        // Ajustar el ancho de las barras
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setMaximumBarWidth(0.1); // Set the maximum bar width to 10 percent of the total width
+
+
         ChartPanel panel = new ChartPanel(chart);
         JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
         frame.pack();
         frame.setVisible(true);
@@ -1425,7 +1455,7 @@ public class Encuesta extends JFrame {
         getContentPane().add(comboboxMaestrosEvaluados);
         //leer el archivo de resultados
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Resultados.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\viejo\\OneDrive\\Escritorio\\AHHHH\\programacionVisual\\src\\SegundoParcial\\tercerapractica\\Resultados.csv"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -1443,12 +1473,14 @@ public class Encuesta extends JFrame {
         btnGraficar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedTeacher = ((String) comboboxMaestrosEvaluados.getSelectedItem()).toLowerCase();
-                List<String[]> lines = readCsvFile("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Resultados.csv");
+                String selectedTeacher = ((String) comboboxMaestrosEvaluados.getSelectedItem()).toLowerCase().replaceAll("\"", "").trim();
+                System.out.println("Maestro seleccionado: " + selectedTeacher);
+                List<String[]> lines = readCsvFile("C:\\Users\\viejo\\OneDrive\\Escritorio\\AHHHH\\programacionVisual\\src\\SegundoParcial\\tercerapractica\\Resultados.csv");
                 DefaultCategoryDataset dataset = processCsvData(lines, selectedTeacher);
                 createChart(dataset, selectedTeacher);
             }
         });
+
     }//GEN-LAST:event_btnGraficarActionPerformed
 
 
