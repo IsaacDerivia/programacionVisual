@@ -70,17 +70,17 @@ public class Encuesta extends JFrame {
     }
 
 
-
-
-    private DefaultCategoryDataset processCsvData(List<String[]> lines, String selectedTeacher) {
+    private DefaultCategoryDataset processCsvData(List<String[]> lines, String selectedTeacher, String selectedSubject) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String normalizedSelectedTeacher = selectedTeacher.replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
+        String normalizedSelectedSubject = selectedSubject.replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
         Map<String, Integer> responseCount = new HashMap<>();
 
-        for (int j = 1; j < lines.size(); j++) { // Empieza desde 1 para ignorar la cabecera
+        for (int j = 1; j < lines.size(); j++) { // Start from 1 to ignore the header
             String[] line = lines.get(j);
             String normalizedLineTeacher = line[0].replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
-            if (normalizedLineTeacher.equals(normalizedSelectedTeacher)) {
+            String normalizedLineSubject = line[1].replaceAll("\"", "").trim().replaceAll("\\s+", " ").toLowerCase();
+            if (normalizedLineTeacher.equals(normalizedSelectedTeacher) && normalizedLineSubject.equals(normalizedSelectedSubject)) {
                 for (int i = 2; i < line.length; i++) {
                     String respuesta = line[i];
                     responseCount.put(respuesta, responseCount.getOrDefault(respuesta, 0) + 1);
@@ -88,12 +88,12 @@ public class Encuesta extends JFrame {
             }
         }
 
-        // Añadir las respuestas al dataset
+        // Add the responses to the dataset
         for (Map.Entry<String, Integer> entry : responseCount.entrySet()) {
             dataset.addValue(entry.getValue(), "Respuestas", entry.getKey());
         }
 
-        // Imprimir el dataset para depuración
+        // Print the dataset for debugging
         for (int row = 0; row < dataset.getRowCount(); row++) {
             for (int column = 0; column < dataset.getColumnCount(); column++) {
                 System.out.println("Categoria: " + dataset.getRowKey(row) + ", Respuesta: " + dataset.getColumnKey(column) + ", Valor: " + dataset.getValue(row, column));
@@ -102,7 +102,6 @@ public class Encuesta extends JFrame {
 
         return dataset;
     }
-
 
     private void createChart(DefaultCategoryDataset dataset, String selectedTeacher) {
         JFreeChart chart = ChartFactory.createBarChart(
@@ -120,9 +119,6 @@ public class Encuesta extends JFrame {
         plot.setRangeGridlinePaint(Color.BLACK);
 
 
-
-
-
         // Ajustar el ancho de las barras
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.1); // Set the maximum bar width to 10 percent of the total width
@@ -130,7 +126,7 @@ public class Encuesta extends JFrame {
 
         ChartPanel panel = new ChartPanel(chart);
         JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setContentPane(panel);
         frame.pack();
         frame.setVisible(true);
@@ -261,6 +257,7 @@ public class Encuesta extends JFrame {
 
         btnArchivo.setText("Archivo");
 
+        btnNuevaEncuesta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnNuevaEncuesta.setText("Nueva Encuesta");
         btnNuevaEncuesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +275,7 @@ public class Encuesta extends JFrame {
             }
         });
 
+        btnGraficar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         btnGraficar.setText("Graficas");
         btnGraficar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,6 +306,10 @@ public class Encuesta extends JFrame {
 
     private void btnNuevaEncuestaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnNuevaEncuestaActionPerformed
         // TODO add your handling code here:
+
+        //limpiar toda la ventana
+        getContentPane().removeAll();
+        getContentPane().repaint();
 
 
         lblMaestros = new JLabel();
@@ -486,8 +488,7 @@ public class Encuesta extends JFrame {
                                     JPanel panel = new JPanel();
                                     panel.setLayout(null); // Use null layout to manually set component positions
                                     //definir tamaño del panel, tiene el mismo tamaño que el frame
-                                    panel.setPreferredSize(new Dimension(2000, 2000));
-
+                                    panel.setPreferredSize(new Dimension(1000, 1300));
 
                                     // Mueve todos los componentes al panel
                                     for (Component component : contentPane.getComponents()) {
@@ -1453,37 +1454,72 @@ public class Encuesta extends JFrame {
         JComboBox<String> comboboxMaestrosEvaluados = new JComboBox<>();
         comboboxMaestrosEvaluados.setBounds(20, 20, 200, 30);
         getContentPane().add(comboboxMaestrosEvaluados);
+
         //leer el archivo de resultados
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\viejo\\OneDrive\\Escritorio\\AHHHH\\programacionVisual\\src\\SegundoParcial\\tercerapractica\\Resultados.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Resultados.csv"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
+                //validacion que si hay nombres iguales eliga el primero e ignore a los demas
+                if (comboboxMaestrosEvaluados.getItemCount() > 0 && comboboxMaestrosEvaluados.getItemAt(comboboxMaestrosEvaluados.getItemCount() - 1).equals(parts[0])) {
+                    continue;
+                }
                 comboboxMaestrosEvaluados.addItem(parts[0]);
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        //crear un combobox con las materias que ya han sido evaluadas
+        JComboBox<String> comboboxMateriasEvaluadas = new JComboBox<>();
+        comboboxMateriasEvaluadas.setBounds(20, 60, 200, 30);
+        getContentPane().add(comboboxMateriasEvaluadas);
+
+        //actualizar materias cuando se selecciona un maestro
+        comboboxMaestrosEvaluados.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedTeacher = (String) comboboxMaestrosEvaluados.getSelectedItem();
+                    comboboxMateriasEvaluadas.removeAllItems(); // Clear the combobox
+
+                    try (BufferedReader reader = new BufferedReader(new FileReader("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Resultados.csv"))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            String[] parts = line.split(",");
+                            if (parts[0].equals(selectedTeacher)) {
+                                String subject = parts[1];
+                                comboboxMateriasEvaluadas.addItem(subject);
+                            }
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
         //boton para graficar
         JButton btnGraficar = new JButton();
         btnGraficar.setText("Graficar");
-        btnGraficar.setBounds(20, 60, 200, 30);
+        btnGraficar.setBounds(20, 100, 200, 40); // Adjust the position so it doesn't overlap with comboboxMateriasEvaluadas
         getContentPane().add(btnGraficar);
         btnGraficar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selectedSubject = ((String) comboboxMateriasEvaluadas.getSelectedItem()).toLowerCase().replaceAll("\"", "").trim();
                 String selectedTeacher = ((String) comboboxMaestrosEvaluados.getSelectedItem()).toLowerCase().replaceAll("\"", "").trim();
                 System.out.println("Maestro seleccionado: " + selectedTeacher);
-                List<String[]> lines = readCsvFile("C:\\Users\\viejo\\OneDrive\\Escritorio\\AHHHH\\programacionVisual\\src\\SegundoParcial\\tercerapractica\\Resultados.csv");
-                DefaultCategoryDataset dataset = processCsvData(lines, selectedTeacher);
+                List<String[]> lines = readCsvFile("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/SegundoParcial/tercerapractica/Resultados.csv");
+                DefaultCategoryDataset dataset = processCsvData(lines, selectedTeacher, selectedSubject);
                 createChart(dataset, selectedTeacher);
             }
         });
 
-    }//GEN-LAST:event_btnGraficarActionPerformed
-
-
+    }                                           
 
 
     /**
@@ -1530,5 +1566,5 @@ public class Encuesta extends JFrame {
     private javax.swing.JMenu btnInformacion;
     private javax.swing.JMenuItem btnVersion;
     private javax.swing.JMenuBar jMenuBar1;
-// End of variables declaration//GEN-END:variables
+    // End of variables declaration//GEN-END:variables
 }
