@@ -306,7 +306,18 @@ public class SegundoParcial extends javax.swing.JFrame {
                     } else if (RadioButtonPHP.isSelected()) {
                         lenguaje = "PHP";
                     } else {
-                        lenguaje = "Otro";
+                        //en el txtarea se escribe el lenguaje que se selecciono
+                        lenguaje = JOptionPane.showInputDialog(null, "Escribe el lenguaje que conoces");
+                        //si no se escribe nada se pone otro y validar que solo sean letras
+                        if (lenguaje == null || lenguaje.equals("")) {
+                            lenguaje = "Otro";
+                        } else {
+                            if (lenguaje.matches(".*\\d.*")) {
+                                JOptionPane.showMessageDialog(null, "nombre no valido");
+                                return;
+                            }
+                        }
+
                     }
 
                     //valida el idioma
@@ -317,12 +328,22 @@ public class SegundoParcial extends javax.swing.JFrame {
                     } else if (RadioButtonAleman.isSelected()) {
                         idioma = "Aleman";
                     } else {
-                        idioma = "Otro";
+                        //en el txtarea se escribe el idioma que se selecciono
+                        idioma = JOptionPane.showInputDialog(null, "Escribe el idioma que conoces");
+                        //si no se escribe nada se pone otro y validar que solo sean letras
+                        if (idioma == null || idioma.equals("")) {
+                            idioma = "Otro";
+                        } else {
+                            if (idioma.matches(".*\\d.*")) {
+                                JOptionPane.showMessageDialog(null, "idioma no valido");
+                                return;
+                            }
+                        }
                     }
 
                     //guarda los datos en un archivo csv
                     try {
-                        CSVWriter writer = new CSVWriter(new FileWriter("/home/isaac/Universidad/Programacion Visual/unedl_PV_2024A/src/Examen/SegundoParcial/Encuestas.csv", true));
+                        CSVWriter writer = new CSVWriter(new FileWriter("C:\\Users\\viejo\\OneDrive\\Escritorio\\AHHHH\\programacionVisual\\src\\Examen\\SegundoParcial\\Encuestas.csv", true));
                         String[] datos = {fechaActual, horaActual, genero, estadoCivil, nacionalidad, lenguaje, idioma};
                         writer.writeNext(datos);
                         writer.close();
